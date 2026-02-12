@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Countdown Timer Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .color-picker-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .color-picker-group input[type="color"] {
+            width: 60px;
+            height: 45px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .color-picker-group input[type="text"] {
+            flex: 1;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .preview-section {
+            display: none;
+        }
+
+        .preview-section.active {
+            display: block;
+        }
+
+        .preview-box {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .countdown-preview {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-preview img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+
+        .copy-btn.copied {
+            background: #10b981;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .info-box.warning {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+
+        .info-box.warning h4 {
+            color: #f57c00;
+        }
+
+        .server-url-input {
+            margin-bottom: 20px;
+        }
+
+        .server-url-input input {
+            font-family: monospace;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⏱️ Email Countdown Timer</h1>
+            <p>Create beautiful countdown timers for your email campaigns - free & no watermarks!</p>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 20px;">Configure Your Timer</h2>
+
+            <div class="form-group server-url-input">
+                <label for="serverUrl">Server URL</label>
+                <input type="text" id="serverUrl" value="http://localhost:3000"
+                    placeholder="e.g., https://your-domain.com">
+                <small style="color: #666; display: block; margin-top: 5px;">
+                    Enter your deployed server URL (or use localhost for testing)
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="eventName">Event Name (Optional)</label>
+                <input type="text" id="eventName" placeholder="e.g., Black Friday Sale, Product Launch">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="targetDate">Target Date</label>
+                    <input type="date" id="targetDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="targetTime">Target Time</label>
+                    <input type="time" id="targetTime" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="timezone">Timezone</label>
+                <select id="timezone">
+                    <option value="UTC">UTC</option>
+                    <option value="America/New_York">Eastern Time (ET)</option>
+                    <option value="America/Chicago">Central Time (CT)</option>
+                    <option value="America/Denver">Mountain Time (MT)</option>
+                    <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                    <option value="Europe/London">London (GMT)</option>
+                    <option value="Europe/Paris">Paris (CET)</option>
+                    <option value="Asia/Tokyo">Tokyo (JST)</option>
+                    <option value="Asia/Shanghai">Shanghai (CST)</option>
+                    <option value="Asia/Kolkata">India (IST)</option>
+                    <option value="Australia/Sydney">Sydney (AEDT)</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="color-picker-group">
+                        <input type="color" id="bgColor" value="#667eea">
+                        <input type="text" id="bgColorText" value="#667eea">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Text Color</label>
+                    <div class="color-picker-group">
+                        <input type="color" id="textColor" value="#ffffff">
+                        <input type="text" id="textColorText" value="#ffffff">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fontSize">Font Size (px)</label>
+                <input type="number" id="fontSize" value="24" min="12" max="72">
+            </div>
+
+            <button class="btn" onclick="generateTimer()">Generate Countdown Timer</button>
+        </div>
+
+        <div class="card preview-section" id="previewSection">
+            <h2 style="margin-bottom: 20px;">Your Countdown Timer</h2>
+
+            <div class="preview-box">
+                <div class="countdown-preview" id="countdownPreview">
+                    <img id="timerImage" src="" alt="Countdown Timer">
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 15px;">HTML Code for Email</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode('htmlCode')">Copy</button>
+                <pre id="htmlCode"></pre>
+            </div>
+
+            <h3 style="margin-bottom: 15px;">Image URL (Direct Link)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode('imageUrl')">Copy</button>
+                <pre id="imageUrl"></pre>
+            </div>
+
+            <div class="info-box">
+                <h4>📧 How to Use in Your Email</h4>
+                <p>
+                    1. Copy the HTML code or image URL above<br>
+                    2. Paste it into your email template<br>
+                    3. The countdown will automatically update each time the email is opened!<br>
+                    <br>
+                    <strong>Note:</strong> The image refreshes every time someone opens your email,
+                    showing the current remaining time. This works with all major email clients.
+                </p>
+            </div>
+
+            <div class="info-box warning">
+                <h4>⚠️ Email Client Testing</h4>
+                <p>
+                    Test your countdown timer with different email clients (Gmail, Outlook, Apple Mail)
+                    to ensure it displays correctly. Some email clients may cache images, so the timer
+                    might not update in real-time when viewing the same email multiple times in quick succession.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sync color pickers with text inputs
+        document.getElementById('bgColor').addEventListener('input', (e) => {
+            document.getElementById('bgColorText').value = e.target.value;
+        });
+
+        document.getElementById('bgColorText').addEventListener('input', (e) => {
+            document.getElementById('bgColor').value = e.target.value;
+        });
+
+        document.getElementById('textColor').addEventListener('input', (e) => {
+            document.getElementById('textColorText').value = e.target.value;
+        });
+
+        document.getElementById('textColorText').addEventListener('input', (e) => {
+            document.getElementById('textColor').value = e.target.value;
+        });
+
+        // Set default date to 7 days from now
+        const futureDate = new Date();
+        futureDate.setDate(futureDate.getDate() + 7);
+        document.getElementById('targetDate').valueAsDate = futureDate;
+        document.getElementById('targetTime').value = '23:59';
+
+        function generateTimer() {
+            const serverUrl = document.getElementById('serverUrl').value.replace(/\/$/, ''); // Remove trailing slash
+            const eventName = document.getElementById('eventName').value;
+            const targetDate = document.getElementById('targetDate').value;
+            const targetTime = document.getElementById('targetTime').value;
+            const timezone = document.getElementById('timezone').value;
+            const bgColor = document.getElementById('bgColor').value;
+            const textColor = document.getElementById('textColor').value;
+            const fontSize = document.getElementById('fontSize').value;
+
+            if (!targetDate || !targetTime) {
+                alert('Please select a target date and time');
+                return;
+            }
+
+            if (!serverUrl) {
+                alert('Please enter your server URL');
+                return;
+            }
+
+            // Show preview section
+            document.getElementById('previewSection').classList.add('active');
+
+            // Create target date object
+            const target = new Date(targetDate + 'T' + targetTime);
+            const targetTimestamp = target.getTime();
+
+            // Build query parameters
+            const params = new URLSearchParams({
+                target: targetTimestamp,
+                tz: timezone,
+                bg: bgColor,
+                text: textColor,
+                size: fontSize
+            });
+
+            if (eventName) {
+                params.append('name', eventName);
+            }
+
+            // Generate image URL
+            const imageUrl = `${serverUrl}/countdown?${params.toString()}`;
+
+            // Add cache buster for email clients
+            const imageUrlWithCacheBuster = `${imageUrl}&t={{timestamp}}`;
+
+            // Update preview image with cache buster to force reload
+            const previewUrl = `${imageUrl}&t=${Date.now()}`;
+            document.getElementById('timerImage').src = previewUrl;
+
+            // Auto-refresh preview every second
+            if (window.previewInterval) {
+                clearInterval(window.previewInterval);
+            }
+            window.previewInterval = setInterval(() => {
+                document.getElementById('timerImage').src = `${imageUrl}&t=${Date.now()}`;
+            }, 1000);
+
+            // Generate HTML code for email
+            const htmlCode = `<img src="${imageUrlWithCacheBuster}" alt="${eventName || 'Countdown Timer'}" style="display: block; max-width: 100%;" />`;
+
+            document.getElementById('htmlCode').textContent = htmlCode;
+            document.getElementById('imageUrl').textContent = imageUrlWithCacheBuster;
+
+            // Scroll to preview
+            document.getElementById('previewSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyCode(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Clean up interval when page is closed
+        window.addEventListener('beforeunload', () => {
+            if (window.previewInterval) {
+                clearInterval(window.previewInterval);
+            }
+        });
+    </script>
+</body>
+
+</html>

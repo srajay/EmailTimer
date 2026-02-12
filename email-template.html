@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template with Countdown Timer</title>
+</head>
+
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+
+    <!-- Email Container -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f4f4f4; padding: 20px;">
+        <tr>
+            <td align="center">
+
+                <!-- Main Content Table -->
+                <table width="600" cellpadding="0" cellspacing="0" border="0"
+                    style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+
+                    <!-- Header -->
+                    <tr>
+                        <td
+                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 28px;">🎉 Flash Sale Alert!</h1>
+                            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 16px; opacity: 0.9;">
+                                Don't miss out on our biggest sale of the year
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Countdown Timer -->
+                    <tr>
+                        <td style="padding: 30px 20px; text-align: center; background-color: #f9f9f9;">
+                            <h2 style="margin: 0 0 20px 0; color: #333; font-size: 20px;">Sale Ends In:</h2>
+
+                            <!-- 
+                                REPLACE THE URL BELOW WITH YOUR SERVER URL
+                                Example: https://your-domain.com/countdown?target=...
+                            -->
+                            <img src="http://localhost:3000/countdown?target=1735689600000&tz=UTC&bg=%23667eea&text=%23ffffff&size=24&name=Flash%20Sale&t={{timestamp}}"
+                                alt="Countdown Timer"
+                                style="display: block; max-width: 100%; height: auto; margin: 0 auto; border-radius: 8px;" />
+
+                        </td>
+                    </tr>
+
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <h3 style="color: #333; margin: 0 0 15px 0; font-size: 22px;">Save Up to 50% Off!</h3>
+                            <p style="color: #666; line-height: 1.6; margin: 0 0 20px 0; font-size: 16px;">
+                                Our biggest sale of the year is here! Get incredible discounts on all your favorite
+                                products.
+                                From electronics to fashion, home goods to beauty products - everything is on sale!
+                            </p>
+                            <p style="color: #666; line-height: 1.6; margin: 0 0 20px 0; font-size: 16px;">
+                                <strong>Featured Deals:</strong>
+                            </p>
+                            <ul style="color: #666; line-height: 1.8; margin: 0 0 20px 0; padding-left: 20px;">
+                                <li>Electronics - Up to 40% off</li>
+                                <li>Fashion - Buy 2 Get 1 Free</li>
+                                <li>Home & Garden - 30% off sitewide</li>
+                                <li>Beauty Products - Special bundles</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <!-- CTA Button -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px; text-align: center;">
+                            <a href="https://your-website.com/sale"
+                                style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; text-decoration: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                                Shop Now →
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td
+                            style="background-color: #f9f9f9; padding: 30px 20px; text-align: center; border-top: 1px solid #e0e0e0;">
+                            <p style="color: #999; margin: 0 0 10px 0; font-size: 14px;">
+                                © 2026 Your Company Name. All rights reserved.
+                            </p>
+                            <p style="color: #999; margin: 0; font-size: 12px;">
+                                <a href="#" style="color: #667eea; text-decoration: none;">Unsubscribe</a> |
+                                <a href="#" style="color: #667eea; text-decoration: none;">Privacy Policy</a> |
+                                <a href="#" style="color: #667eea; text-decoration: none;">Contact Us</a>
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
