@@ -8,9 +8,9 @@ RUN apk add --no-cache \
     jpeg-dev \
     pango-dev \
     giflib-dev \
-    pixman-dev \
-    fontconfig \
-    ttf-dejavu
+    pixman-dev
+
+# Note: Fonts are bundled in the fonts/ directory and registered in server.js
 
 # Create app directory
 WORKDIR /usr/src/app
