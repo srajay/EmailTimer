@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: email-countdown-timer
+    env: docker
+    plan: free
+    repo: https://github.com/srajay/EmailTimer
+    branch: main
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 10000
