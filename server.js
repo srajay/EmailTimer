@@ -1,7 +1,10 @@
-const express = require('express');
-const { createCanvas } = require('canvas');
-const moment = require('moment-timezone');
 const path = require('path');
+const { createCanvas, registerFont } = require('canvas');
+const moment = require('moment-timezone');
+
+// Register fonts
+registerFont(path.join(__dirname, 'fonts', 'Roboto-Bold.ttf'), { family: 'Roboto', weight: 'bold' });
+registerFont(path.join(__dirname, 'fonts', 'Roboto-Regular.ttf'), { family: 'Roboto', weight: 'normal' });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -60,7 +63,7 @@ app.get('/countdown', (req, res) => {
         // Draw event name if provided
         if (eventName) {
             ctx.fillStyle = textColor;
-            ctx.font = `bold ${Math.floor(fontSize * 0.7)}px Arial`;
+            ctx.font = `bold ${Math.floor(fontSize * 0.7)}px Roboto`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(eventName, width / 2, 40);
@@ -90,13 +93,13 @@ app.get('/countdown', (req, res) => {
 
             // Draw value
             ctx.fillStyle = textColor;
-            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.font = `bold ${fontSize}px Roboto`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(String(unit.value).padStart(2, '0'), x + boxWidth / 2, startY + 35);
 
             // Draw label
-            ctx.font = `${Math.floor(fontSize * 0.4)}px Arial`;
+            ctx.font = `${Math.floor(fontSize * 0.4)}px Roboto`;
             ctx.fillText(unit.label, x + boxWidth / 2, startY + 65);
         });
 
