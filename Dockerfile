@@ -8,7 +8,9 @@ RUN apk add --no-cache \
     jpeg-dev \
     pango-dev \
     giflib-dev \
-    pixman-dev
+    pixman-dev \
+    fontconfig \
+    ttf-dejavu
 
 # Create app directory
 WORKDIR /usr/src/app
